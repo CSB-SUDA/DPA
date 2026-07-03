@@ -74,8 +74,15 @@ protein2
 ---
 
 ## Usage
-Please use the main. R script to execute the following code.
+Run the complete DPA workflow using the `main.R` script:
 
+```r
+source("main.R")
+```
+
+The workflow consists of three major steps:
+
+### Load functions
 ```r
 source("R/global.R")
 source("R/load_string.R")
@@ -85,9 +92,9 @@ source("R/module_rewiring.R")
 source("R/calculate_DP.R")
 ```
 
-### Step 1
+### Step 1. Construct State-specific Networks and Detect Modules
 
-Construct state-specific weighted PPI networks
+Build state-specific weighted PPI networks:
 
 ```r
 network <- build_state_network(
@@ -97,22 +104,23 @@ network <- build_state_network(
 )
 ```
 
-Detect modules
+Detect network modules and evaluate module conservation:
 
 ```r
 module_res <- detect_modules(network)
 ```
 
-Outputs
+**Outputs**
 
-- Gene-module assignment
+- State-specific weighted PPI network
+- Gene–module assignment table
 - Module conservation scores
 
 ---
 
-### Step 2
+### Step 2. Identify module rewiring
 
-Identify module rewiring
+Identify rewiring events between adjacent disease states:
 
 ```r
 rewired_res <- identify_module_rewiring(
@@ -121,13 +129,16 @@ rewired_res <- identify_module_rewiring(
 )
 ```
 
+**Output**
+
+- Module rewiring table
+
+
 ---
 
-### Step 3
+### Step 3. Calculate DP scores
 
-Calculate DP
-
-Node DP
+Calculate node-level DP scores:
 
 ```r
 nodeDP <- calculate_node_DP(
@@ -136,7 +147,7 @@ nodeDP <- calculate_node_DP(
 )
 ```
 
-Module DP
+Calculate module-level DP scores:
 
 ```r
 moduleDP <- calculate_module_DP(
@@ -145,23 +156,28 @@ moduleDP <- calculate_module_DP(
 )
 ```
 
+**Outputs**
+
+- Gene DP scores
+- Module DP scores
+
 ---
 
 ## Output
 
 | File | Description |
 |------|-------------|
-| State-specific_weighted_PPI_network.csv | Weighted network |
-| Gene_module_table.csv | Module assignment |
-| Module_change_&_conservation_score.csv | Module conservation |
-| Module_rewiring_table.csv | Rewired edges |
-| DP_node.csv | Node DP scores |
-| DP_module.csv | Module DP scores |
+| `State-specific_weighted_PPI_network.csv` | State-specific weighted PPI network |
+| `Gene_module_table.csv` | Gene-to-module assignment table |
+| `Module_change_&_conservation_score.csv` | Module conservation scores across disease states |
+| `Module_rewiring_table.csv` | Rewired interactions between adjacent states |
+| `DP_node.csv` | Node-level Degree of Perturbation (DP) scores |
+| `DP_module.csv` | Module-level Degree of Perturbation (DP) scores |
 
 ---
 
 ## Citation
 
-If you use DPA in your work, please cite our manuscript (coming soon).
+If you use **DPA** in your work, please cite our manuscript (coming soon).
 
 ```
