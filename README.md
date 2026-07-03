@@ -69,12 +69,12 @@ Required columns
 ```
 protein1
 protein2
-combined_score
 ```
 
 ---
 
 ## Usage
+Please use the main. R script to execute the following code.
 
 ```r
 source("R/global.R")
